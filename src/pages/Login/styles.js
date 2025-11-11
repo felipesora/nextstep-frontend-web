@@ -168,6 +168,15 @@ export const InputIcon = styled.i`
   pointer-events: none;
 `;
 
+export const SecaoErro = styled.div`
+    text-align: center;
+    margin: 0 0 10px 0;
+    p {
+        color: var(--erro);
+        font-weight: 500;
+    }
+`
+
 export const BotaoLogin = styled.button`
     width: 100%;
     padding: 14px;
