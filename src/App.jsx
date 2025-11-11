@@ -1,10 +1,17 @@
-function App() {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import DashBoard from "./pages/DashBoard"
+
+const App = () => {
 
   return (
-    <>
-      <h1>NextStep</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/dashboard" element={<DashBoard />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
