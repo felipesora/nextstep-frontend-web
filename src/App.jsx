@@ -1,14 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import DashBoard from "./pages/DashBoard"
+import Trilhas from "./pages/Trilhas";
+import LayoutPadrao from "./components/LayoutPadrao";
 
 const App = () => {
 
   return (
     <BrowserRouter>
       <Routes>
+          {/* Rota sem barra lateral */}
           <Route path="/login" element={<Login />}/>
-          <Route path="/dashboard" element={<DashBoard />} />
+
+          {/* Rotas com a barra lateral */}
+          <Route element={<LayoutPadrao />}>
+              <Route path="/dashboard" element={<DashBoard />} />
+              <Route path="/trilhas" element={<Trilhas />} />
+          </Route>
       </Routes>
     </BrowserRouter>
   )
