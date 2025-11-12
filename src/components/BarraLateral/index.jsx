@@ -12,19 +12,19 @@ const BarraLateral = () => {
             <MenuBarraLateral>
                 <ItemMenu>
                     <Link to="/dashboard">
-                        <i class="fas fa-chart-pie"></i>
+                        <i className="fas fa-chart-pie"></i>
                         <span>Dashboard</span>
                     </Link>
                 </ItemMenu>
                 <ItemMenu>
                     <Link to="/trilhas">
-                        <i class="fas fa-map-signs"></i>
+                        <i className="fas fa-map-signs"></i>
                         <span>Trilhas</span>
                     </Link>
                 </ItemMenu>
                 <ItemMenu>
                     <Link>
-                        <i class="fas fa-users"></i>
+                        <i className="fas fa-users"></i>
                         <span>Usuários</span>
                     </Link>
                 </ItemMenu>
