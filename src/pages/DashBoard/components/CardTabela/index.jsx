@@ -1,6 +1,28 @@
 import { CabecalhoCard, ContainerCard, Status, Tabela, TituloCard } from "./style"
 
-const CardTabela = ({ titulo }) => {
+const CardTabela = ({ titulo, trilhas }) => {
+
+    const formatarArea = (area) => {
+        switch (area) {
+            case "BACKEND":
+                return "Backend"
+            case "WEB":
+                return "Desenvolvimento WEB"
+            case "DATA_SCIENCE":
+                return "Data Science"
+            case "MOBILE":
+                return "Desenvolvimento MOBILE"
+            case "DESIGN":
+                return "Design"
+            case "DEVOPS":
+                return "DevOps"
+            case "IA":
+                return "IA"
+            default:
+                return area
+        }
+    }
+
     return(
         <ContainerCard>
             <CabecalhoCard>
@@ -17,18 +39,29 @@ const CardTabela = ({ titulo }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Frontend com React</td>
-                        <td>Desenvolvimento Web</td>
-                        <td>4.8</td>
-                        <td><Status $ativo={true}>Ativa</Status></td>
-                    </tr>
-                    <tr>
-                        <td>Python para Data Science</td>
-                        <td>Data Science</td>
-                        <td>4.7</td>
-                        <td><Status $ativo={false}>Inativa</Status></td>
-                    </tr>
+                    {trilhas.length > 0 ? (
+                        trilhas.map((trilha) => (
+                        <tr key={trilha.id_trilha}>
+                            <td>{trilha.nome}</td>
+                            <td>{formatarArea(trilha.area)}</td>
+                            <td>4.8</td>
+                            <td>
+                            {trilha.status == "ATIVA" ?
+                                <Status $ativo={true}>Ativa</Status>
+                                :
+                                <Status $ativo={false}>Inativa</Status>
+                            }
+                            
+                            </td>
+                        </tr>
+                        ))
+                    ) : (
+                        <tr>
+                        <td colSpan="4" style={{ textAlign: "center", padding: "15px" }}>
+                            Nenhuma trilha cadastrada.
+                        </td>
+                        </tr>
+                    )}
                 </tbody>
             </Tabela>
         </ContainerCard>
