@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CabecalhoContainer = styled.header`
     background: var(--card);
-    padding: 18px 30px;
+    padding: 21px 30px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     display: flex;
     justify-content: space-between;
