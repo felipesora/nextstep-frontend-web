@@ -1,6 +1,10 @@
+import BarraLateral from "../../components/BarraLateral"
+
 const DashBoard = () => {
     return(
-        <h1>DashBoard</h1>
+        <>
+            <h1>DashBoard</h1>
+        </>
     )
 }
 
