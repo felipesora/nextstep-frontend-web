@@ -1,10 +1,25 @@
-function App() {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import DashBoard from "./pages/DashBoard"
+import Trilhas from "./pages/Trilhas";
+import LayoutPadrao from "./components/LayoutPadrao";
+
+const App = () => {
 
   return (
-    <>
-      <h1>NextStep</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+          {/* Rota sem barra lateral */}
+          <Route path="/login" element={<Login />}/>
+
+          {/* Rotas com a barra lateral */}
+          <Route element={<LayoutPadrao />}>
+              <Route path="/dashboard" element={<DashBoard />} />
+              <Route path="/trilhas" element={<Trilhas />} />
+          </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
