@@ -1,6 +1,15 @@
+import Cabecalho from "../../components/Cabecalho";
+
 const Trilhas = () => {
     return(
-        <h1>trilhas</h1>
+        <>
+            <Cabecalho
+                titulo="Trilhas de Aprendizado"
+                descricao="Gerencie todas as trilhas da plataforma"
+                user="FS"
+            />
+            <h1>Trilhas</h1>
+        </>
     )
 };
 

@@ -7,6 +7,9 @@ export const ContainerBarraLateral = styled.div`
     padding: 25px 0;
     transition: all 0.3s;
     z-index: 100;
+    @media (max-width: 1024px) {
+        width: 80px;
+    }
 `
 
 export const LogoContainer = styled.div`
@@ -19,6 +22,10 @@ export const LogoContainer = styled.div`
     img {
         width: 150px;
         height: auto;
+    }
+    @media (max-width: 1024px) {
+        justify-content: center;
+        padding: 0 15px 25px;
     }
 `
 
