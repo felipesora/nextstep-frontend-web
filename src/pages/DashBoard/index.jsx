@@ -4,9 +4,11 @@ import CardPequeno from "./components/CardPequeno"
 import CardTabela from "./components/CardTabela"
 import { CardsInformacoes, ConteudoPagina } from "./styles"
 import { buscarTodasTrilhas } from "../../services/trilhasService"
+import { buscarTodosUsuariosFinais } from "./services/usuarioFinalService"
 
 const DashBoard = () => {
     const [qntTrilhas, setQntTrilhas] = useState(0);
+    const [qntUsuariosFinais, setQntUsuariosFinais] = useState(0);
     const [trilhas, setTrilhas] = useState([]);
 
     useEffect(() => {
@@ -22,7 +24,18 @@ const DashBoard = () => {
             }
         };
 
+        const buscarUsuariosFinais = async () => {
+            try {
+                const usuariosFinaisCadastradas = await buscarTodosUsuariosFinais();
+                setQntUsuariosFinais(usuariosFinaisCadastradas.length);
+            } catch (error) {
+                console.error("Erro ao buscar usuários finais:", error);
+                setQntUsuariosFinais(0);
+            }
+        };
+
         buscarTrilhas();
+        buscarUsuariosFinais();
     }, []);
 
     return(
@@ -37,7 +50,7 @@ const DashBoard = () => {
                     <CardPequeno 
                         titulo="Total de Alunos"
                         icone="fas fa-users"
-                        valor="1,246"
+                        valor={qntUsuariosFinais}
                         style={{
                             background: "rgba(0, 120, 255, 0.1)",
                             color: "var(--cor-principal)"
