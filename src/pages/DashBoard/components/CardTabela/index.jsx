@@ -23,6 +23,14 @@ const CardTabela = ({ titulo, trilhas }) => {
         }
     }
 
+    const calcularMediaNotas = (notas) => {
+        if (!notas || notas.length === 0) return "-";
+
+        const soma = notas.reduce((acc, nota) => acc + nota.valor_nota, 0);
+        const media = soma / notas.length;
+        return media.toFixed(1);
+    };
+    
     return(
         <ContainerCard>
             <CabecalhoCard>
@@ -44,7 +52,7 @@ const CardTabela = ({ titulo, trilhas }) => {
                         <tr key={trilha.id_trilha}>
                             <td>{trilha.nome}</td>
                             <td>{formatarArea(trilha.area)}</td>
-                            <td>4.8</td>
+                            <td>{calcularMediaNotas(trilha.notas)}</td>
                             <td>
                             {trilha.status == "ATIVA" ?
                                 <Status $ativo={true}>Ativa</Status>
