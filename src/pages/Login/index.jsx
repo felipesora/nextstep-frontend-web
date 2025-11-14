@@ -3,7 +3,7 @@ import { LoginBodyStyle } from './LoginBodyStyle';
 import LogoBranca from '../../../public/images/logo-branca.png';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { isTokenValid, login } from "./services/authService";
+import { isTokenValid, login } from "../../services/authService";
 
 const Login = () => {
     const navigate = useNavigate();
