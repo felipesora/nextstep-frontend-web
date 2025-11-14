@@ -16,3 +16,27 @@ export async function buscarTodasTrilhas() {
     const data = await response.json();
     return data.content;
 }
+
+export async function cadastrarTrilha(trilha) {
+    const response = await fetch(`${API}/trilhas`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            nome: trilha.nome,
+            descricao: trilha.descricao,
+            area: trilha.area,
+            nivel: trilha.nivel,
+            status: trilha.status
+        }),
+    });
+
+    if (!response.ok) {
+        const erro = await response.text();
+        throw new Error(`Cadastro de tarefa! ${erro}`);
+    }
+
+    return await response.json();
+}
