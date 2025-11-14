@@ -98,6 +98,7 @@ export const CorpoCard = styled.div`
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        min-height: 90px;
     }
 `
 
