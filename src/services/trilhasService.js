@@ -15,6 +15,20 @@ export async function buscarTodasTrilhas() {
 
     const data = await response.json();
     return data.content;
+};
+
+export async function buscarTrilhaPorId(id) {
+    const response = await fetch(`${API}/trilhas/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Erro ao obter os dados da trilha.');
+    }
+
+    return await response.json();
 }
 
 export async function cadastrarTrilha(trilha) {
@@ -39,4 +53,4 @@ export async function cadastrarTrilha(trilha) {
     }
 
     return await response.json();
-}
+};

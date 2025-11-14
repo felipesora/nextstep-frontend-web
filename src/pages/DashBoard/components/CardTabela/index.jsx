@@ -1,35 +1,7 @@
 import { CabecalhoCard, ContainerCard, Status, Tabela, TituloCard } from "./style"
+import { calcularMediaNotas, formatarArea } from "../../../../utils/formatarDadosTrilha.jsx";
 
 const CardTabela = ({ titulo, trilhas }) => {
-
-    const formatarArea = (area) => {
-        switch (area) {
-            case "BACKEND":
-                return "Backend"
-            case "WEB":
-                return "Desenvolvimento WEB"
-            case "DATA_SCIENCE":
-                return "Data Science"
-            case "MOBILE":
-                return "Desenvolvimento MOBILE"
-            case "DESIGN":
-                return "Design"
-            case "DEVOPS":
-                return "DevOps"
-            case "IA":
-                return "IA"
-            default:
-                return area
-        }
-    }
-
-    const calcularMediaNotas = (notas) => {
-        if (!notas || notas.length === 0) return "-";
-
-        const soma = notas.reduce((acc, nota) => acc + nota.valor_nota, 0);
-        const media = soma / notas.length;
-        return media.toFixed(1);
-    };
     
     return(
         <ContainerCard>
