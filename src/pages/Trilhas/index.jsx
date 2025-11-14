@@ -4,9 +4,11 @@ import CardTrilha from "./components/CardTrilha";
 import { ContainerBotaoAdicionar, ContainerBotoesFiltro, ContainerCards, ContainerFiltro, ConteudoPagina, FiltroInput, FiltroSelects } from "./styles";
 import { buscarTodasTrilhas } from "../../services/trilhasService"
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
+import { useNavigate } from "react-router-dom";
 
 const Trilhas = () => {
     useAuthRedirect();
+    const navigate = useNavigate();
     const [trilhas, setTrilhas] = useState([]);
     const [busca, setBusca] = useState("");
     const [categoria, setCategoria] = useState("TODOS");
@@ -108,7 +110,7 @@ const Trilhas = () => {
                 </ContainerBotoesFiltro>
 
                 <ContainerBotaoAdicionar>
-                    <button className="btn btn_adicionar">
+                    <button className="btn btn_adicionar" onClick={() => navigate("/cadastro-trilha")}>
                         <i className="fas fa-plus-circle"></i>
                         Nova Trilha
                     </button>

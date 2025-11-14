@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import DashBoard from "./pages/DashBoard"
 import Trilhas from "./pages/Trilhas";
 import LayoutPadrao from "./components/LayoutPadrao";
+import CadastroTrilhas from "./pages/CadastroTrilhas";
 
 const App = () => {
 
@@ -16,6 +17,8 @@ const App = () => {
           <Route element={<LayoutPadrao />}>
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/trilhas" element={<Trilhas />} />
+              <Route path="/trilhas" element={<Trilhas />} />
+              <Route path="/cadastro-trilha" element={<CadastroTrilhas />} />
           </Route>
       </Routes>
     </BrowserRouter>
