@@ -9,7 +9,7 @@ export function useAuthRedirect() {
         if (!isTokenValid()) {
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
-            navigate("/");
+            navigate("/login");
         }
     }, [navigate]);
 }

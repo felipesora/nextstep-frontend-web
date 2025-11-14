@@ -35,7 +35,7 @@ export const MenuBarraLateral = styled.ul`
 `
 
 export const ItemMenu = styled.li`
-    padding: 0;
+    padding: 5px 0;
     list-style: none;
 
     a {

@@ -5,8 +5,10 @@ import CardTabela from "./components/CardTabela"
 import { CardsInformacoes, ConteudoPagina } from "./styles"
 import { buscarTodasTrilhas } from "../../services/trilhasService"
 import { buscarTodosUsuariosFinais } from "./services/usuarioFinalService"
+import { useAuthRedirect } from "../../hooks/useAuthRedirect.js"
 
 const DashBoard = () => {
+    useAuthRedirect();
     const [qntTrilhas, setQntTrilhas] = useState(0);
     const [qntUsuariosFinais, setQntUsuariosFinais] = useState(0);
     const [trilhas, setTrilhas] = useState([]);
