@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { ContainerAvaliacao, ConteudoPagina, ConteudoSecao, ConteudoSecaoCabecalho, TrilhaActions, TrilhaCabecalho, TrilhaDescricao, TrilhaInfo } from "./styles";
-import { buscarTrilhaPorId } from "../../services/trilhasService";
+import { buscarTrilhaPorId, deletarTrilha } from "../../services/trilhasService";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useParams, useNavigate } from "react-router-dom";
 import Cabecalho from "../../components/Cabecalho";
 import { calcularMediaNotas, formatarArea, formatarNivel, renderizarEstrelas } from "../../utils/formatarDadosTrilha.jsx";
 import CardConteudo from "./components/CardConteudo/index.jsx";
+import DeleteModal from "../../components/DeleteModal/index.jsx";
 
 const DetalhesTrilha = () => {
     useAuthRedirect();
@@ -13,6 +14,8 @@ const DetalhesTrilha = () => {
     const navigate = useNavigate();
     const [trilha, setTrilha] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [loadingDelete, setLoadingDelete] = useState(false)
 
     useEffect(() => {
         const buscarTrilha = async () => {
@@ -35,14 +38,15 @@ const DetalhesTrilha = () => {
         navigate(`/editar-trilha/${id}`);
     };
 
-    const handleExcluirTrilha = async () => {
-        if (window.confirm("Tem certeza que deseja excluir esta trilha?")) {
-            try {
-                // await excluirTrilha(id);
-                navigate("/trilhas");
-            } catch (error) {
-                console.error("Erro ao excluir trilha:", error);
-            }
+    const handleDeleteTrilha = async () => {
+        try {
+            setLoadingDelete(true);
+            await deletarTrilha(id);
+            navigate("/trilhas");
+        } catch (erro) {
+            console.error(erro);
+        } finally {
+            setLoadingDelete(false);
         }
     };
 
@@ -108,7 +112,7 @@ const DetalhesTrilha = () => {
                                 <i className="fas fa-edit"></i>
                                 Editar Trilha
                             </button>
-                            <button className="btn btn-danger" onClick={handleExcluirTrilha}>
+                            <button className="btn btn-danger" onClick={() => setModalOpen(true)}>
                                 <i className="fas fa-trash"></i>
                                 Excluir Trilha
                             </button>
@@ -132,46 +136,6 @@ const DetalhesTrilha = () => {
 
                     {trilha.conteudos && trilha.conteudos.length > 0 ? (
                         trilha.conteudos.map((conteudo, index) => (
-                            // <div className="conteudo-step" key={conteudo.id_conteudo}>
-                            //     <div className="step-number">{index + 1}</div>
-                            //     <div className="conteudo-card">
-                            //         <div className="conteudo-header">
-                            //             <div>
-                            //                 <h3 className="conteudo-title">{conteudo.titulo}</h3>
-                            //                 <span className={`conteudo-type type-${conteudo.tipo.toLowerCase()}`}>
-                            //                     {conteudo.tipo}
-                            //                 </span>
-                            //             </div>
-                            //             <div className="conteudo-actions">
-                            //                 <button 
-                            //                     className="card-btn card-btn-secondary"
-                            //                     onClick={() => handleEditarConteudo(conteudo.id_conteudo)}
-                            //                 >
-                            //                     <i className="fas fa-edit"></i>
-                            //                 </button>
-                            //                 <button 
-                            //                     className="card-btn card-btn-danger"
-                            //                     onClick={() => handleExcluirConteudo(conteudo.id_conteudo)}
-                            //                 >
-                            //                     <i className="fas fa-trash"></i>
-                            //                 </button>
-                            //             </div>
-                            //         </div>
-                            //         <p className="conteudo-description">
-                            //             {conteudo.descricao}
-                            //         </p>
-                            //         {conteudo.link && (
-                            //             <a href={conteudo.link} className="conteudo-link" target="_blank" rel="noopener noreferrer">
-                            //                 <i className="fas fa-external-link-alt"></i>
-                            //                 {conteudo.tipo === 'CURSO' && 'Acessar Curso'}
-                            //                 {conteudo.tipo === 'ARTIGO' && 'Ler Artigo'}
-                            //                 {conteudo.tipo === 'PODCAST' && 'Ouvir Podcast'}
-                            //                 {conteudo.tipo === 'VIDEO' && 'Assistir Vídeo'}
-                            //                 {conteudo.tipo === 'DESAFIO' && 'Iniciar Desafio'}
-                            //             </a>
-                            //         )}
-                            //     </div>
-                            // </div>
                             <CardConteudo conteudo={conteudo} index={index}/>
                         ))
                     ) : (
@@ -179,6 +143,15 @@ const DetalhesTrilha = () => {
                     )}
                 </ConteudoSecao>
             </ConteudoPagina>
+
+            <DeleteModal 
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={handleDeleteTrilha}
+                titulo="Excluir Trilha"
+                mensagem="Tem certeza que deseja excluir esta trilha? Esta ação não pode ser desfeita."
+                loading={loadingDelete}
+            />
         </>
     );
 };

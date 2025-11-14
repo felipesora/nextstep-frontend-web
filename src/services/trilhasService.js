@@ -77,3 +77,19 @@ export async function editarTrilha(idTrilha, trilha) {
 
     return await response.json();
 }
+
+export async function deletarTrilha(idTrilha) {
+    const response = await fetch(`${API}/trilhas/${idTrilha}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Erro ao deletar trilha.');
+    }
+
+    return;
+}
