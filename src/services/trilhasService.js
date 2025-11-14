@@ -49,7 +49,7 @@ export async function cadastrarTrilha(trilha) {
 
     if (!response.ok) {
         const erro = await response.text();
-        throw new Error(`Cadastro de tarefa! ${erro}`);
+        throw new Error(`Erro no cadastro de trilha! ${erro}`);
     }
 
     return await response.json();

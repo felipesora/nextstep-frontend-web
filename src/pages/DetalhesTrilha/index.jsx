@@ -51,7 +51,7 @@ const DetalhesTrilha = () => {
     };
 
     const handleAdicionarConteudo = () => {
-        navigate(`/cadastro-conteudo/${id}`);
+        navigate(`/trilha/${id}/cadastro-conteudo`);
     };
 
     const handleEditarConteudo = (conteudoId) => {
