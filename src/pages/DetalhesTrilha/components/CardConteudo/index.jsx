@@ -3,7 +3,7 @@ import { useAuthRedirect } from "../../../../hooks/useAuthRedirect";
 import { formartarTipoConteudo } from "../../../../utils/formatarDadosTrilha";
 import { ContainerCardConteudo, ContainerEtapa, ConteudoActions, ConteudoCabecalho, ConteudoDescricao, ConteudoLink, TipoConteudo } from "./styles";
 
-const CardConteudo = ({ conteudo, index }) => {
+const CardConteudo = ({ conteudo, index, onDelete }) => {
     useAuthRedirect();
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const CardConteudo = ({ conteudo, index }) => {
                         </button>
                         <button 
                             className="card-btn card-btn-danger"
-                            onClick={() => handleExcluirConteudo(conteudo.id_conteudo)}
+                            onClick={onDelete}
                         >
                             <i className="fas fa-trash"></i>
                         </button>

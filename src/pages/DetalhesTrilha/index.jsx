@@ -7,6 +7,7 @@ import Cabecalho from "../../components/Cabecalho";
 import { calcularMediaNotas, formatarArea, formatarNivel, renderizarEstrelas } from "../../utils/formatarDadosTrilha.jsx";
 import CardConteudo from "./components/CardConteudo/index.jsx";
 import DeleteModal from "../../components/DeleteModal/index.jsx";
+import { deletarConteudo } from "../../services/conteudoService.js";
 
 const DetalhesTrilha = () => {
     useAuthRedirect();
@@ -15,6 +16,8 @@ const DetalhesTrilha = () => {
     const [trilha, setTrilha] = useState(null);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalTipo, setModalTipo] = useState(""); // "trilha" ou "conteudo"
+    const [idConteudoExcluir, setIdConteudoExcluir] = useState(null);
     const [loadingDelete, setLoadingDelete] = useState(false)
 
     useEffect(() => {
@@ -34,24 +37,30 @@ const DetalhesTrilha = () => {
         buscarTrilha();
     }, [id]);
 
-    const handleEditarTrilha = () => {
-        navigate(`/editar-trilha/${id}`);
-    };
-
-    const handleDeleteTrilha = async () => {
+    const handleConfirmDelete = async () => {
+        setLoadingDelete(true);
         try {
-            setLoadingDelete(true);
-            await deletarTrilha(id);
-            navigate("/trilhas");
+            if (modalTipo === "trilha") {
+                await deletarTrilha(id);
+                navigate("/trilhas");
+            } 
+            else if (modalTipo === "conteudo") {
+                await deletarConteudo(idConteudoExcluir);
+                const atualizada = await buscarTrilhaPorId(id);
+                setTrilha(atualizada);
+            }
         } catch (erro) {
             console.error(erro);
         } finally {
             setLoadingDelete(false);
+            setModalOpen(false);
         }
     };
 
-    const handleAdicionarConteudo = () => {
-        navigate(`/trilha/${id}/cadastro-conteudo`);
+    const abrirModalDeleteConteudo = (idConteudo) => {
+        setIdConteudoExcluir(idConteudo);
+        setModalTipo("conteudo");
+        setModalOpen(true);
     };
 
     if (loading) {
@@ -93,11 +102,15 @@ const DetalhesTrilha = () => {
                             </div>
                         </TrilhaInfo>
                         <TrilhaActions>
-                            <button className="btn btn-secondary" onClick={handleEditarTrilha}>
+                            <button className="btn btn-secondary" onClick={() => navigate(`/editar-trilha/${id}`)}>
                                 <i className="fas fa-edit"></i>
                                 Editar Trilha
                             </button>
-                            <button className="btn btn-danger" onClick={() => setModalOpen(true)}>
+                            <button className="btn btn-danger" 
+                            onClick={() => {
+                                setModalTipo("trilha");
+                                setModalOpen(true);
+                            }}>
                                 <i className="fas fa-trash"></i>
                                 Excluir Trilha
                             </button>
@@ -113,7 +126,7 @@ const DetalhesTrilha = () => {
                 <ConteudoSecao>
                     <ConteudoSecaoCabecalho>
                         <h2 className="section-title">Conteúdos da Trilha</h2>
-                        <button className="btn btn-primary" onClick={handleAdicionarConteudo}>
+                        <button className="btn btn-primary" onClick={() => navigate(`/trilha/${id}/cadastro-conteudo`)}>
                             <i className="fas fa-plus"></i>
                             Adicionar Conteúdo
                         </button>
@@ -121,7 +134,12 @@ const DetalhesTrilha = () => {
 
                     {trilha.conteudos && trilha.conteudos.length > 0 ? (
                         trilha.conteudos.map((conteudo, index) => (
-                            <CardConteudo key={index} conteudo={conteudo} index={index}/>
+                            <CardConteudo 
+                                key={index} 
+                                conteudo={conteudo} 
+                                index={index}
+                                onDelete={() => abrirModalDeleteConteudo(conteudo.id_conteudo)}
+                            />
                         ))
                     ) : (
                         <p>Nenhum conteúdo cadastrado para esta trilha.</p>
@@ -132,9 +150,12 @@ const DetalhesTrilha = () => {
             <DeleteModal 
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
-                onConfirm={handleDeleteTrilha}
-                titulo="Excluir Trilha"
-                mensagem="Tem certeza que deseja excluir esta trilha? Esta ação não pode ser desfeita."
+                onConfirm={handleConfirmDelete}
+                titulo={modalTipo === "trilha" ? "Excluir Trilha" : "Excluir Conteúdo"}
+                mensagem={modalTipo === "trilha"
+                    ? "Tem certeza que deseja excluir esta trilha? Esta ação não pode ser desfeita."
+                    : "Tem certeza que deseja excluir este conteúdo? Esta ação não pode ser desfeita."
+                }
                 loading={loadingDelete}
             />
         </>
