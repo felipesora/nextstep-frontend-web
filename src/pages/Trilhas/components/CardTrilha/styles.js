@@ -98,6 +98,7 @@ export const CorpoCard = styled.div`
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        min-height: 90px;
     }
 `
 
@@ -120,8 +121,12 @@ export const ContainerAvaliacao = styled.div`
         gap: 2px;
     }
     span {
-       font-weight: 700;
+        font-weight: 700;
         color: var(--cor-texto-principal); 
+    }
+    .quantidade-avaliacoes {
+        font-weight: 500;
+        color: var(--gray); 
     }
 `
 export const ContainerBotaoCard = styled.div`
