@@ -76,7 +76,6 @@ const DetalhesTrilha = () => {
             <Cabecalho
                 titulo="Detalhes da Trilha"
                 descricao="Gerencie os detalhes e conteúdos desta trilha"
-                user="FS"
             />
             <ConteudoPagina>
                 {/* Detalhes da Trilha */}

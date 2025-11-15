@@ -24,7 +24,7 @@ export const CabecalhoConteudoPagina = styled.div`
 export const ContainerUserInfo = styled.div`
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 `
 
 export const UserAvatar = styled.div`
@@ -37,4 +37,29 @@ export const UserAvatar = styled.div`
     justify-content: center;
     color: white;
     font-weight: 600;
+`
+
+export const LogoutButton = styled.button`
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+
+    &:hover {
+        background: rgba(255, 71, 87, 0.1);
+        color: #FF4757;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 `

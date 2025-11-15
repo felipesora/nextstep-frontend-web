@@ -88,7 +88,6 @@ const EditarConteudo = () => {
             <Cabecalho
                 titulo={conteudo ? `Editando o Conteúdo: ${conteudo.titulo}` : "Edição de Conteúdo"}
                 descricao="Atualize as informações deste conteúdo e salve as alterações"
-                user="FS"
             />
 
             <ConteudoPagina>

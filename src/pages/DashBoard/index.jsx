@@ -45,7 +45,6 @@ const DashBoard = () => {
             <Cabecalho
                 titulo="Dashboard"
                 descricao="Visão geral do sistema NextStep"
-                user="FS"
             />
             <ConteudoPagina>
                 <CardsInformacoes>
