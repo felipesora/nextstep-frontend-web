@@ -23,7 +23,7 @@ const BarraLateral = () => {
                     </Link>
                 </ItemMenu>
                 <ItemMenu>
-                    <Link>
+                    <Link to="/usuarios">
                         <i className="fas fa-users"></i>
                         <span>Usuários</span>
                     </Link>

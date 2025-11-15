@@ -8,6 +8,7 @@ import DetalhesTrilha from "./pages/DetalhesTrilha";
 import EditarTrilhas from "./pages/EditarTrilhas";
 import CadastroConteudo from "./pages/CadastroConteudo";
 import EditarConteudo from "./pages/EditarConteudo";
+import Usuarios from "./pages/Usuarios";
 
 const App = () => {
 
@@ -20,7 +21,7 @@ const App = () => {
           {/* Rotas com a barra lateral */}
           <Route element={<LayoutPadrao />}>
               <Route path="/dashboard" element={<DashBoard />} />
-              <Route path="/trilhas" element={<Trilhas />} />
+              <Route path="/usuarios" element={<Usuarios />} />
               <Route path="/trilhas" element={<Trilhas />} />
               <Route path="/cadastro-trilha" element={<CadastroTrilhas />} />
               <Route path="/detalhes-trilha/:id" element={<DetalhesTrilha />} />
