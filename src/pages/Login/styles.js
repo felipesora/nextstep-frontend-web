@@ -213,12 +213,16 @@ export const AcessoAdmin = styled.div`
     margin-top: 20px;
     color: #8C8C9A;
     font-size: 0.85rem;
-    a {
+    button {
         color: var(--cor-principal);
         text-decoration: none;
         font-weight: 600;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin-left: 5px;
     }
-    a:hover {
+    button:hover {
         text-decoration: underline;
     }
 `

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { CabecalhoContainer, CabecalhoConteudoPagina, ContainerUserInfo, LogoutButton, UserAvatar } from "./styles"
-import { buscarUsuarioPorId } from "../../pages/Usuarios/services/usuarioService";
+import { buscarUsuarioPorId } from "../../services/usuarioService";
 import { useNavigate } from "react-router-dom";
 import LogoutModal from "../LogoutModal"
 
@@ -12,6 +12,8 @@ const Cabecalho = ({ titulo, descricao }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!idUsuarioLogado) return;
+        
         const buscarUsuarioLogado = async () => {
             try {
                 const usuarioLogado = await buscarUsuarioPorId(idUsuarioLogado);
