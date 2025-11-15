@@ -1,7 +1,8 @@
 const API = "http://localhost:8080";
-const token = localStorage.getItem('token');
 
 export async function buscarTodasTrilhas() {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/trilhas?size=100`, {
         method: "GET",
         headers: {
@@ -18,6 +19,8 @@ export async function buscarTodasTrilhas() {
 };
 
 export async function buscarTrilhaPorId(id) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/trilhas/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -32,6 +35,8 @@ export async function buscarTrilhaPorId(id) {
 }
 
 export async function cadastrarTrilha(trilha) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/trilhas`, {
         method: 'POST',
         headers: {
@@ -56,6 +61,8 @@ export async function cadastrarTrilha(trilha) {
 };
 
 export async function editarTrilha(idTrilha, trilha) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/trilhas/${idTrilha}`, {
         method: 'PUT',
         headers: {
@@ -79,6 +86,8 @@ export async function editarTrilha(idTrilha, trilha) {
 }
 
 export async function deletarTrilha(idTrilha) {
+    const token = localStorage.getItem('token');
+    
     const response = await fetch(`${API}/trilhas/${idTrilha}`, {
         method: 'DELETE',
         headers: {

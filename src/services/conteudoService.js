@@ -1,7 +1,8 @@
 const API = "http://localhost:8080";
-const token = localStorage.getItem('token');
 
 export async function buscarConteudoPorId(id) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/conteudos/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -16,6 +17,8 @@ export async function buscarConteudoPorId(id) {
 }
 
 export async function cadastrarConteudo(conteudo) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/conteudos`, {
         method: 'POST',
         headers: {
@@ -40,6 +43,8 @@ export async function cadastrarConteudo(conteudo) {
 };
 
 export async function editarConteudo(idConteudo, conteudo) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/conteudos/${idConteudo}`, {
         method: 'PUT',
         headers: {
@@ -63,6 +68,8 @@ export async function editarConteudo(idConteudo, conteudo) {
 }
 
 export async function deletarConteudo(idConteudo) {
+    const token = localStorage.getItem('token');
+    
     const response = await fetch(`${API}/conteudos/${idConteudo}`, {
         method: 'DELETE',
         headers: {

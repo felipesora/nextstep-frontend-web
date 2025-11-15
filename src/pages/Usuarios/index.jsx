@@ -5,6 +5,7 @@ import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useNavigate } from "react-router-dom";
 import { buscarTodosUsuarios, deletarUsuario } from "./services/usuarioService";
 import DeleteModal from "../../components/DeleteModal";
+import AlertModal from "../../components/AlertModal";
 
 const Usuarios = () => {
     useAuthRedirect();
@@ -14,6 +15,7 @@ const Usuarios = () => {
     const [loading, setLoading] = useState(true);
     const [solicitacoes, setSolicitacoes] = useState(5); // Mock data
     const [modalOpen, setModalOpen] = useState(false);
+    const [alertModalOpen, setAlertModalOpen] = useState(false);
     const [loadingDelete, setLoadingDelete] = useState(false);
     const [usuarioSelecionadoId, setUsuarioSelecionadoId] = useState(null);
 
@@ -47,6 +49,15 @@ const Usuarios = () => {
             setLoadingDelete(false);
             setModalOpen(false);
         }
+    };
+
+    const handleExcluirClick = (usuarioId) => {
+        if (usuarioId === idUsuarioLogado) {
+            setAlertModalOpen(true);
+            return;
+        }
+        setUsuarioSelecionadoId(usuarioId);
+        setModalOpen(true);
     };
 
     const handleVerSolicitacoes = () => {
@@ -127,14 +138,7 @@ const Usuarios = () => {
                                                     </button>
                                                     <button 
                                                         className="btn-action btn-delete"
-                                                        onClick={() => {
-                                                            if (usuario.id_usuario === idUsuarioLogado) {
-                                                                alert("Você não pode excluir sua própria conta.");
-                                                                return;
-                                                            }
-                                                            setUsuarioSelecionadoId(usuario.id_usuario);
-                                                            setModalOpen(true);
-                                                        }}
+                                                        onClick={() => handleExcluirClick(usuario.id_usuario)}
                                                     >
                                                         <i className="fas fa-trash"></i>
                                                     </button>
@@ -163,6 +167,13 @@ const Usuarios = () => {
                 titulo={"Excluir Usuário"}
                 mensagem={"Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."}
                 loading={loadingDelete}
+            />
+
+            <AlertModal 
+                isOpen={alertModalOpen}
+                onClose={() => setAlertModalOpen(false)}
+                titulo="Ação não permitida"
+                mensagem="Você não pode excluir sua própria conta."
             />
         </>
     );

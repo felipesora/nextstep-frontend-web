@@ -1,7 +1,8 @@
 const API = "http://localhost:8080";
-const token = localStorage.getItem('token');
 
 export async function buscarTodosUsuarios() {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/usuarios/admin?size=100`, {
         method: "GET",
         headers: {
@@ -18,6 +19,8 @@ export async function buscarTodosUsuarios() {
 };
 
 export async function buscarUsuarioPorId(id) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/usuarios/admin/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -32,6 +35,8 @@ export async function buscarUsuarioPorId(id) {
 };
 
 export async function cadastrarUsuario(usuario) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/usuarios/admin`, {
         method: 'POST',
         headers: {
@@ -54,6 +59,8 @@ export async function cadastrarUsuario(usuario) {
 };
 
 export async function editarUsuario(idUsuario, usuario) {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`${API}/usuarios/admin/${idUsuario}`, {
         method: 'PUT',
         headers: {
@@ -75,6 +82,8 @@ export async function editarUsuario(idUsuario, usuario) {
 }
 
 export async function deletarUsuario(idUsuario) {
+    const token = localStorage.getItem('token');
+    
     const response = await fetch(`${API}/usuarios/admin/${idUsuario}`, {
         method: 'DELETE',
         headers: {

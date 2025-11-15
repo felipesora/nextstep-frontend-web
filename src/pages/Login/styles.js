@@ -177,6 +177,15 @@ export const SecaoErro = styled.div`
     }
 `
 
+export const SecaoSucesso = styled.div`
+    text-align: center;
+    margin: 0 0 10px 0;
+    p {
+        color: var(--cor-texto-enfase);
+        font-weight: 500;
+    }
+`
+
 export const BotaoLogin = styled.button`
     width: 100%;
     padding: 14px;
