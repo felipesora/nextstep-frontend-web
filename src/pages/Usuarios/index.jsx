@@ -3,9 +3,10 @@ import Cabecalho from "../../components/Cabecalho";
 import { ConteudoPagina, StatsCards, TabelaUsuarios, UsuariosSection } from "./styles";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useNavigate } from "react-router-dom";
-import { buscarTodosUsuarios, deletarUsuario } from "./services/usuarioService";
+import { buscarTodosUsuarios, deletarUsuario } from "../../services/usuarioService";
 import DeleteModal from "../../components/DeleteModal";
 import AlertModal from "../../components/AlertModal";
+import { buscarTodasSolicitacoes } from "../../services/solicitacaoService";
 
 const Usuarios = () => {
     useAuthRedirect();
@@ -13,7 +14,7 @@ const Usuarios = () => {
     const idUsuarioLogado = Number(localStorage.getItem("userId"));
     const [usuarios, setUsuarios] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [solicitacoes, setSolicitacoes] = useState(5); // Mock data
+    const [solicitacoes, setSolicitacoes] = useState(0); // Mock data
     const [modalOpen, setModalOpen] = useState(false);
     const [alertModalOpen, setAlertModalOpen] = useState(false);
     const [loadingDelete, setLoadingDelete] = useState(false);
@@ -23,7 +24,9 @@ const Usuarios = () => {
         const buscarUsuarios = async () => {
             try {
                 const usuariosData = await buscarTodosUsuarios();
+                const solicatoesData = await buscarTodasSolicitacoes();
                 setUsuarios(usuariosData);
+                setSolicitacoes(solicatoesData.length);
             } catch (error) {
                 console.error("Erro ao buscar usuários:", error);
                 setUsuarios([]);
@@ -60,10 +63,6 @@ const Usuarios = () => {
         setModalOpen(true);
     };
 
-    const handleVerSolicitacoes = () => {
-        navigate("/solicitacoes-conta");
-    };
-
     if (loading) {
         return <div>Carregando...</div>;
     }
@@ -73,7 +72,6 @@ const Usuarios = () => {
             <Cabecalho
                 titulo="Gerenciamento de Usuários"
                 descricao="Gerencie todos os usuários da plataforma"
-                user="AD"
             />
 
             <ConteudoPagina>
@@ -89,7 +87,7 @@ const Usuarios = () => {
                         </div>
                     </div>
 
-                    <div className="stat-card notification-card" onClick={handleVerSolicitacoes}>
+                    <div className="stat-card notification-card" onClick={() => navigate("/solicitacoes-conta")}>
                         <div className="stat-info">
                             <h3 className="stat-value">{solicitacoes}</h3>
                             <p className="stat-label">Solicitações de Conta</p>

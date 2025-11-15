@@ -3,7 +3,7 @@ import Cabecalho from "../../components/Cabecalho";
 import { CabecalhoFormulario, ContainerFormulario, ConteudoPagina, FormularioAcoes, FormularioAjuda, FormularioGrid, FormularioGrupo, FormularioInput, FormularioLabel, FormularioSelect, FormularioTextArea, SecaoErro, SecaoSucesso } from "./styles";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useEffect, useState } from "react";
-import { buscarUsuarioPorId, editarUsuario } from "../Usuarios/services/usuarioService";
+import { buscarUsuarioPorId, editarUsuario } from "../../services/usuarioService";
 
 const EditarUsuarios = () => {
     useAuthRedirect();
