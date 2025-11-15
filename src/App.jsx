@@ -9,6 +9,7 @@ import EditarTrilhas from "./pages/EditarTrilhas";
 import CadastroConteudo from "./pages/CadastroConteudo";
 import EditarConteudo from "./pages/EditarConteudo";
 import Usuarios from "./pages/Usuarios";
+import EditarUsuarios from "./pages/EditarUsuarios";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route element={<LayoutPadrao />}>
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/editar-usuario/:id" element={<EditarUsuarios />} />
               <Route path="/trilhas" element={<Trilhas />} />
               <Route path="/cadastro-trilha" element={<CadastroTrilhas />} />
               <Route path="/detalhes-trilha/:id" element={<DetalhesTrilha />} />

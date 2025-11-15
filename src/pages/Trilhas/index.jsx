@@ -57,7 +57,6 @@ const Trilhas = () => {
             <Cabecalho
                 titulo="Trilhas de Aprendizado"
                 descricao="Gerencie todas as trilhas da plataforma"
-                user="FS"
             />
             <ConteudoPagina>
                 <ContainerFiltro>

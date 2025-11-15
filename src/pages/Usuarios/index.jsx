@@ -28,10 +28,6 @@ const Usuarios = () => {
         buscarUsuarios();
     }, []);
 
-    const handleEditarUsuario = (usuarioId) => {
-        navigate(`/editar-usuario/${usuarioId}`);
-    };
-
     const handleExcluirUsuario = async (usuarioId) => {
         if (window.confirm("Tem certeza que deseja excluir este usuário?")) {
             try {
@@ -49,9 +45,9 @@ const Usuarios = () => {
         navigate("/solicitacoes-conta");
     };
 
-    // if (loading) {
-    //     return <div>Carregando...</div>;
-    // }
+    if (loading) {
+        return <div>Carregando...</div>;
+    }
 
     return (
         <>
@@ -117,7 +113,7 @@ const Usuarios = () => {
                                                 <div className="table-actions">
                                                     <button 
                                                         className="btn-action btn-edit"
-                                                        onClick={() => handleEditarUsuario(usuario.id_usuario)}
+                                                        onClick={() => navigate(`/editar-usuario/${usuario.id_usuario}`)}
                                                     >
                                                         <i className="fas fa-edit"></i>
                                                     </button>
