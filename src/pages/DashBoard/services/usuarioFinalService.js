@@ -1,7 +1,8 @@
 const API = "http://localhost:8080";
-const token = localStorage.getItem('token');
 
 export async function buscarTodosUsuariosFinais() {
+    const token = localStorage.getItem('token');
+    
     const response = await fetch(`${API}/usuarios/final?size=100`, {
         method: "GET",
         headers: {

@@ -31,7 +31,7 @@ const EditarTrilhas = () => {
                 setStatus(dados.status);
             } catch (erro) {
                 console.error(erro);
-                setError("Erro ao carregar dados da transação.");
+                setError("Erro ao carregar dados da trilha.");
             }
         };
 
@@ -88,7 +88,6 @@ const EditarTrilhas = () => {
             <Cabecalho
                 titulo={trilha ? `Editando a Trilha: ${trilha.nome}` : "Edição de Trilha"}
                 descricao="Altere os dados necessários e salve as modificações"
-                user="FS"
             />
 
             <ConteudoPagina>

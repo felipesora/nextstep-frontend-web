@@ -1,4 +1,4 @@
-import { AcessoAdmin, BotaoLogin, ConteudoBoasVindas, FormGrupo, FormLabel, IconeFuncionalidade, Input, InputGrupo, InputIcon, ListaFuncionalidades, LoginCabecalho, LoginContainer, LoginForm, LoginSecao, SecaoBoasVindas, SecaoErro, SecaoLogo } from "./styles";
+import { AcessoAdmin, BotaoLogin, ConteudoBoasVindas, FormGrupo, FormLabel, IconeFuncionalidade, Input, InputGrupo, InputIcon, ListaFuncionalidades, LoginCabecalho, LoginContainer, LoginForm, LoginSecao, SecaoBoasVindas, SecaoErro, SecaoLogo, SecaoSucesso } from "./styles";
 import { LoginBodyStyle } from './LoginBodyStyle';
 import LogoBranca from '../../../public/images/logo-branca.png';
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,7 +25,11 @@ const Login = () => {
         try {
             await login(email, senha);
             setError('');
-            navigate('/dashboard')
+            setSuccess("Login realizado!");
+
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 1500);
         } catch (error) {
             console.error(error);
             setError('Email ou senha inválidos.');
@@ -112,6 +117,12 @@ const Login = () => {
                             <SecaoErro>
                                 <p>{error}</p>
                             </SecaoErro>
+                        )}
+
+                        {success && (
+                            <SecaoSucesso>
+                                <p>{success}</p>
+                            </SecaoSucesso>
                         )}
 
                         <BotaoLogin type="submit">

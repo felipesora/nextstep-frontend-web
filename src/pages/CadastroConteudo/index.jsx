@@ -66,7 +66,6 @@ const CadastroConteudo = () => {
             <Cabecalho
                 titulo="Cadastrar Novo Conteúdo"
                 descricao="Adicione um novo conteúdo à trilha"
-                user="FS"
             />
 
             <ConteudoPagina>

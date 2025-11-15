@@ -1,9 +1,9 @@
 const API = "http://localhost:8080";
 
-export async function buscarTodasTrilhas() {
+export async function buscarTodosUsuarios() {
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API}/trilhas?size=100`, {
+    const response = await fetch(`${API}/usuarios/admin?size=100`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -11,84 +11,80 @@ export async function buscarTodasTrilhas() {
     });
 
     if (!response.ok) {
-        throw new Error("Erro ao obter as trilhas.");
+        throw new Error("Erro ao obter os usuarios.");
     }
 
     const data = await response.json();
     return data.content;
 };
 
-export async function buscarTrilhaPorId(id) {
+export async function buscarUsuarioPorId(id) {
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API}/trilhas/${id}`, {
+    const response = await fetch(`${API}/usuarios/admin/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
     });
 
     if (!response.ok) {
-        throw new Error('Erro ao obter os dados da trilha.');
+        throw new Error('Erro ao obter os dados do usuario.');
     }
 
     return await response.json();
-}
+};
 
-export async function cadastrarTrilha(trilha) {
+export async function cadastrarUsuario(usuario) {
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API}/trilhas`, {
+    const response = await fetch(`${API}/usuarios/admin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-            nome: trilha.nome,
-            descricao: trilha.descricao,
-            area: trilha.area,
-            nivel: trilha.nivel,
-            status: trilha.status
+            nome: usuario.nome,
+            email: usuario.email,
+            senha: usuario.senha,
         }),
     });
 
     if (!response.ok) {
         const erro = await response.text();
-        throw new Error(`Erro no cadastro de trilha! ${erro}`);
+        throw new Error(`Erro no cadastro de usuário! ${erro}`);
     }
 
     return await response.json();
 };
 
-export async function editarTrilha(idTrilha, trilha) {
+export async function editarUsuario(idUsuario, usuario) {
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API}/trilhas/${idTrilha}`, {
+    const response = await fetch(`${API}/usuarios/admin/${idUsuario}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            nome: trilha.nome,
-            descricao: trilha.descricao,
-            area: trilha.area,
-            nivel: trilha.nivel,
-            status: trilha.status
+            nome: usuario.nome,
+            email: usuario.email,
+            senha: usuario.senha,
         })
     });
 
     if (!response.ok) {
-        throw new Error('Erro ao editar os dados da trilha.');
+        throw new Error('Erro ao editar os dados do usuário.');
     }
 
     return await response.json();
 }
 
-export async function deletarTrilha(idTrilha) {
+export async function deletarUsuario(idUsuario) {
     const token = localStorage.getItem('token');
     
-    const response = await fetch(`${API}/trilhas/${idTrilha}`, {
+    const response = await fetch(`${API}/usuarios/admin/${idUsuario}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -97,7 +93,7 @@ export async function deletarTrilha(idTrilha) {
     });
 
     if (!response.ok) {
-        throw new Error('Erro ao deletar trilha.');
+        throw new Error('Erro ao deletar usuário.');
     }
 
     return;
