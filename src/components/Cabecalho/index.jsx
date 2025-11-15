@@ -20,7 +20,7 @@ const Cabecalho = ({ titulo, descricao }) => {
         };
 
         buscarUsuarioLogado();
-    });
+    }, []);
 
     const handleLogout = () => {
         if (window.confirm("Tem certeza que deseja sair?")) {

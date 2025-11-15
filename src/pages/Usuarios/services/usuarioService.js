@@ -74,7 +74,7 @@ export async function editarUsuario(idUsuario, usuario) {
     return await response.json();
 }
 
-export async function deletarTrilha(idUsuario) {
+export async function deletarUsuario(idUsuario) {
     const response = await fetch(`${API}/usuarios/admin/${idUsuario}`, {
         method: 'DELETE',
         headers: {

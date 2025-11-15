@@ -3,14 +3,19 @@ import Cabecalho from "../../components/Cabecalho";
 import { ConteudoPagina, StatsCards, TabelaUsuarios, UsuariosSection } from "./styles";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useNavigate } from "react-router-dom";
-import { buscarTodosUsuarios } from "./services/usuarioService";
+import { buscarTodosUsuarios, deletarUsuario } from "./services/usuarioService";
+import DeleteModal from "../../components/DeleteModal";
 
 const Usuarios = () => {
     useAuthRedirect();
     const navigate = useNavigate();
+    const idUsuarioLogado = Number(localStorage.getItem("userId"));
     const [usuarios, setUsuarios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [solicitacoes, setSolicitacoes] = useState(5); // Mock data
+    const [modalOpen, setModalOpen] = useState(false);
+    const [loadingDelete, setLoadingDelete] = useState(false);
+    const [usuarioSelecionadoId, setUsuarioSelecionadoId] = useState(null);
 
     useEffect(() => {
         const buscarUsuarios = async () => {
@@ -28,16 +33,19 @@ const Usuarios = () => {
         buscarUsuarios();
     }, []);
 
-    const handleExcluirUsuario = async (usuarioId) => {
-        if (window.confirm("Tem certeza que deseja excluir este usuário?")) {
-            try {
-                // await excluirUsuario(usuarioId);
-                // Recarregar os dados
-                const usuariosData = await buscarTodosUsuarios();
-                setUsuarios(usuariosData);
-            } catch (error) {
-                console.error("Erro ao excluir usuário:", error);
-            }
+    const handleExcluirUsuario = async () => {
+        setLoadingDelete(true);
+        try {
+            await deletarUsuario(usuarioSelecionadoId);
+            const usuariosAtualizados = await buscarTodosUsuarios();
+            setUsuarios(usuariosAtualizados);
+
+        } catch (erro) {
+            console.error(erro);
+
+        } finally {
+            setLoadingDelete(false);
+            setModalOpen(false);
         }
     };
 
@@ -119,7 +127,14 @@ const Usuarios = () => {
                                                     </button>
                                                     <button 
                                                         className="btn-action btn-delete"
-                                                        onClick={() => handleExcluirUsuario(usuario.id_usuario)}
+                                                        onClick={() => {
+                                                            if (usuario.id_usuario === idUsuarioLogado) {
+                                                                alert("Você não pode excluir sua própria conta.");
+                                                                return;
+                                                            }
+                                                            setUsuarioSelecionadoId(usuario.id_usuario);
+                                                            setModalOpen(true);
+                                                        }}
                                                     >
                                                         <i className="fas fa-trash"></i>
                                                     </button>
@@ -140,6 +155,15 @@ const Usuarios = () => {
                     </TabelaUsuarios>
                 </UsuariosSection>
             </ConteudoPagina>
+
+            <DeleteModal 
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={handleExcluirUsuario}
+                titulo={"Excluir Usuário"}
+                mensagem={"Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."}
+                loading={loadingDelete}
+            />
         </>
     );
 };
