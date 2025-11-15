@@ -54,21 +54,6 @@ const DetalhesTrilha = () => {
         navigate(`/trilha/${id}/cadastro-conteudo`);
     };
 
-    const handleEditarConteudo = (conteudoId) => {
-        navigate(`/editar-conteudo/${conteudoId}`);
-    };
-
-    const handleExcluirConteudo = async (conteudoId) => {
-        if (window.confirm("Tem certeza que deseja excluir este conteúdo?")) {
-            try {
-                // await excluirConteudo(conteudoId);
-                // Recarregar os dados da trilha
-            } catch (error) {
-                console.error("Erro ao excluir conteúdo:", error);
-            }
-        }
-    };
-
     if (loading) {
         return <div>Carregando...</div>;
     }
@@ -136,7 +121,7 @@ const DetalhesTrilha = () => {
 
                     {trilha.conteudos && trilha.conteudos.length > 0 ? (
                         trilha.conteudos.map((conteudo, index) => (
-                            <CardConteudo conteudo={conteudo} index={index}/>
+                            <CardConteudo key={index} conteudo={conteudo} index={index}/>
                         ))
                     ) : (
                         <p>Nenhum conteúdo cadastrado para esta trilha.</p>

@@ -7,6 +7,7 @@ import CadastroTrilhas from "./pages/CadastroTrilhas";
 import DetalhesTrilha from "./pages/DetalhesTrilha";
 import EditarTrilhas from "./pages/EditarTrilhas";
 import CadastroConteudo from "./pages/CadastroConteudo";
+import EditarConteudo from "./pages/EditarConteudo";
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/detalhes-trilha/:id" element={<DetalhesTrilha />} />
               <Route path="/editar-trilha/:id" element={<EditarTrilhas />} />
               <Route path="/trilha/:idTrilha/cadastro-conteudo" element={<CadastroConteudo />} />
+              <Route path="/trilha/:idTrilha/editar-conteudo/:idConteudo" element={<EditarConteudo />} />
           </Route>
       </Routes>
     </BrowserRouter>

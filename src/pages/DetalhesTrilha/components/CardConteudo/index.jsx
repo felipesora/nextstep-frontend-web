@@ -1,7 +1,16 @@
+import { useNavigate } from "react-router-dom";
+import { useAuthRedirect } from "../../../../hooks/useAuthRedirect";
 import { formartarTipoConteudo } from "../../../../utils/formatarDadosTrilha";
 import { ContainerCardConteudo, ContainerEtapa, ConteudoActions, ConteudoCabecalho, ConteudoDescricao, ConteudoLink, TipoConteudo } from "./styles";
 
 const CardConteudo = ({ conteudo, index }) => {
+    useAuthRedirect();
+    const navigate = useNavigate();
+
+    const handleEditarConteudo = (conteudo) => {
+        navigate(`/trilha/${conteudo.id_trilha}/editar-conteudo/${conteudo.id_conteudo}`);
+    };
+
     return (
         <ContainerEtapa>
             <div className="step-number">{index + 1}</div>
@@ -18,7 +27,7 @@ const CardConteudo = ({ conteudo, index }) => {
                     <ConteudoActions>
                         <button 
                             className="card-btn card-btn-secondary"
-                            onClick={() => handleEditarConteudo(conteudo.id_conteudo)}
+                            onClick={() => handleEditarConteudo(conteudo)}
                         >
                             <i className="fas fa-edit"></i>
                         </button>

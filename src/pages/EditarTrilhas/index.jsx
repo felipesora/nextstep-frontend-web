@@ -22,7 +22,6 @@ const EditarTrilhas = () => {
         const fetchTrilha = async () => {
             try {
                 const dados = await buscarTrilhaPorId(id);
-                console.log(dados);
                 
                 setTrilha(dados)
                 setNome(dados.nome);
