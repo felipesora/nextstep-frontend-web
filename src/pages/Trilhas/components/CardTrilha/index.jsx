@@ -37,6 +37,9 @@ const CardTrilha = ({ trilha }) => {
                         {renderizarEstrelas(calcularMediaNotas(trilha.notas))}
                     </div>
                     <span>{calcularMediaNotas(trilha.notas)}</span>
+                    {trilha.notas.length > 0 && (
+                        <span className="quantidade-avaliacoes">({trilha.notas.length})</span>
+                    )}
                 </ContainerAvaliacao>
 
                 <ContainerBotaoCard>

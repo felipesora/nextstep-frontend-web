@@ -104,6 +104,10 @@ export const ContainerAvaliacao = styled.div`
        font-weight: 700;
         color: var(--cor-texto-principal); 
     }
+    .quantidade-avaliacoes {
+        font-weight: 500;
+        color: var(--gray); 
+    }
 `
 
 export const TrilhaActions = styled.div`

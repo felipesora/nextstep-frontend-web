@@ -98,6 +98,9 @@ const DetalhesTrilha = () => {
                                         {renderizarEstrelas(calcularMediaNotas(trilha.notas))}
                                     </div>
                                     <span className="rating-value">{calcularMediaNotas(trilha.notas)}</span>
+                                    {trilha.notas.length > 0 && (
+                                        <span className="quantidade-avaliacoes">({trilha.notas.length})</span>
+                                    )}
                                 </ContainerAvaliacao>
                             </div>
                         </TrilhaInfo>
