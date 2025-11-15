@@ -12,6 +12,8 @@ const Cabecalho = ({ titulo, descricao }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!idUsuarioLogado) return;
+        
         const buscarUsuarioLogado = async () => {
             try {
                 const usuarioLogado = await buscarUsuarioPorId(idUsuarioLogado);

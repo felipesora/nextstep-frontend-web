@@ -35,13 +35,11 @@ export async function buscarSolicitacaoPorId(idSolicitacao) {
 };
 
 export async function cadastrarSolicitacao(solicitacao) {
-    const token = localStorage.getItem('token');
 
     const response = await fetch(`${API}/solicitacoes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
             nome: solicitacao.nome,

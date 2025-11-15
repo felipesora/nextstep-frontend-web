@@ -4,6 +4,7 @@ import LogoBranca from '../../../public/images/logo-branca.png';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { isTokenValid, login } from "../../services/authService";
+import ContactAdminModal from "./components/ContactAdminModal";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Login = () => {
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [modalOpen, setModalOpen] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -34,6 +36,10 @@ const Login = () => {
             console.error(error);
             setError('Email ou senha inválidos.');
         }
+    }
+
+    const handleContactAdmin = () => {
+        setModalOpen(true);
     }
 
     return (
@@ -131,10 +137,19 @@ const Login = () => {
                         </BotaoLogin>
 
                         <AcessoAdmin>
-                            <p>Problemas de acesso? <a href="#">Contate um admin</a></p>
+                            <p>Problemas de acesso? 
+                                <button onClick={(e) => { e.preventDefault(); handleContactAdmin(); }}>
+                                    Contate um admin
+                                </button>
+                            </p>
                         </AcessoAdmin>
                     </LoginForm>
                 </LoginSecao>
+
+                <ContactAdminModal 
+                    isOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                />
             </LoginContainer>
         </>
     )
