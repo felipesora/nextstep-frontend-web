@@ -119,6 +119,151 @@ export const FormularioAjuda = styled.div`
     margin-top: 6px;
 `
 
+export const BotaoAjudaIA = styled.button`
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 2px solid var(--cor-principal);
+    border-radius: 8px;
+    background: rgba(108, 99, 255, 0.1);
+    color: var(--cor-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover:not(:disabled) {
+        background: var(--cor-principal);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+    }
+    
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        border-color: var(--gray);
+        color: var(--gray);
+    }
+    
+    i {
+        font-size: 0.9rem;
+    }
+`;
+
+export const LoadingSpinner = styled.div`
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+`;
+
+export const StatusGeracao = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    &.loading {
+        background: rgba(0, 120, 255, 0.1);
+        color: var(--cor-principal);
+        border: 1px solid rgba(0, 120, 255, 0.2);
+    }
+    
+    &.error {
+        background: rgba(255, 71, 87, 0.1);
+        color: var(--erro);
+        border: 1px solid rgba(255, 71, 87, 0.2);
+    }
+    
+    i {
+        font-size: 1rem;
+    }
+`;
+
+export const SugestaoContainer = styled.div`
+    margin-top: 12px;
+    padding: 16px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    
+    .sugestao-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #22c55e;
+        
+        i {
+            font-size: 1rem;
+        }
+    }
+    
+    .sugestao-message {
+        margin: 0 0 12px 0;
+        color: var(--cor-texto-principal);
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .sugestao-actions {
+        display: flex;
+        gap: 10px;
+        
+        button {
+            gap: 6px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--fonte-principal);
+            display: flex;
+            align-items: center;
+            
+            i {
+                font-size: 0.8rem;
+            }
+        }
+        
+        .btn-usar {
+            background: #22c55e;
+            color: white;
+            
+            &:hover {
+                background: #16a34a;
+                transform: translateY(-1px);
+            }
+        }
+        
+        .btn-descartar {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--gray);
+            
+            
+            &:hover {
+                background: rgba(107, 114, 128, 0.2);
+            }
+        }
+    }
+`;
+
 export const FormularioAcoes = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -157,19 +302,47 @@ export const FormularioAcoes = styled.div`
 `
 
 export const SecaoErro = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-align: left;
     margin: 0 0 10px 0;
+    padding: 12px 16px;
+    background: rgba(255, 71, 87, 0.1);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    border-radius: 8px;
+    
+    i {
+        color: var(--erro);
+        font-size: 1.1rem;
+    }
+    
     p {
         color: var(--erro);
         font-weight: 500;
+        margin: 0;
     }
 `
 
 export const SecaoSucesso = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-align: left;
     margin: 0 0 10px 0;
+    padding: 12px 16px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 8px;
+    
+    i {
+        color: #22c55e;
+        font-size: 1.1rem;
+    }
+    
     p {
-        color: var(--cor-texto-enfase);
+        color: #22c55e;
         font-weight: 500;
+        margin: 0;
     }
 `
