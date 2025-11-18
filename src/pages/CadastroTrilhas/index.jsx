@@ -1,9 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import Cabecalho from "../../components/Cabecalho";
-import { CabecalhoFormulario, ContainerFormulario, ConteudoPagina, FormularioAcoes, FormularioAjuda, FormularioGrid, FormularioGrupo, FormularioInput, FormularioLabel, FormularioSelect, FormularioTextArea, SecaoErro, SecaoSucesso } from "./styles";
+import { 
+    CabecalhoFormulario, 
+    ContainerFormulario, 
+    ConteudoPagina, 
+    FormularioAcoes, 
+    FormularioAjuda, 
+    FormularioGrid, 
+    FormularioGrupo, 
+    FormularioInput, 
+    FormularioLabel, 
+    FormularioSelect, 
+    FormularioTextArea, 
+    SecaoErro, 
+    SecaoSucesso,
+    BotaoAjudaIA,
+    StatusGeracao,
+    LoadingSpinner,
+    SugestaoContainer
+} from "./styles";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 import { useState } from "react";
 import { cadastrarTrilha } from "../../services/trilhasService";
+import { resumirTrilha } from "../../services/resumoIAService";
 
 const CadastroTrilhas = () => {
     useAuthRedirect();
@@ -15,6 +34,9 @@ const CadastroTrilhas = () => {
     const [status, setStatus] = useState('');
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [erroResumo, setErroResumo] = useState("");
+    const [successoResumo, setSuccessoResumo] = useState("");
+    const [gerandoResumo, setGerandoResumo] = useState(false);
 
     const handleCadastrar = async (e) => {
         e.preventDefault();
@@ -61,6 +83,42 @@ const CadastroTrilhas = () => {
         }
     }
 
+    const pedirAjuda = async () => {
+        if (!nome.trim()) {
+            setErroResumo("Digite o nome da trilha para gerar uma descrição com a IA.");
+            setSuccessoResumo("");
+            return;
+        }
+
+        setErroResumo("");
+        setSuccessoResumo("");
+        setGerandoResumo(true);
+
+        try {
+            const resumo = await resumirTrilha(nome);
+            console.log(resumo.resposta);
+            
+            setDescricao(resumo.resposta);
+            setSuccessoResumo("Descrição gerada com sucesso! Revise e ajuste se necessário.");
+
+        } catch (erro) {
+            console.error(erro);
+            setErroResumo("Erro ao gerar descrição. Verifique sua conexão e tente novamente.");
+            setSuccessoResumo("");
+        } finally {
+            setGerandoResumo(false);
+        }
+    };
+
+    const usarSugestao = () => {
+        setSuccessoResumo("");
+    };
+
+    const descartarSugestao = () => {
+        setDescricao("");
+        setSuccessoResumo("");
+    };
+
     return (
         <>
             <Cabecalho
@@ -99,9 +157,29 @@ const CadastroTrilhas = () => {
 
                             {/* Descricao */}
                             <FormularioGrupo className="full-width">
-                                <FormularioLabel>
-                                    Descrição <span className="required">*</span>
-                                </FormularioLabel>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                                    <FormularioLabel>
+                                        Descrição <span className="required">*</span>
+                                    </FormularioLabel>
+                                    
+                                    <BotaoAjudaIA 
+                                        type="button" 
+                                        onClick={pedirAjuda}
+                                        disabled={gerandoResumo}
+                                    >
+                                        {gerandoResumo ? (
+                                            <>
+                                                <LoadingSpinner />
+                                                Gerando...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <i className="fas fa-wand-magic-sparkles"></i>
+                                                Sugerir com IA
+                                            </>
+                                        )}
+                                    </BotaoAjudaIA>
+                                </div>
 
                                 <FormularioTextArea 
                                     placeholder="Descreva os objetivos, conteúdos e benefícios desta trilha..."
@@ -112,8 +190,52 @@ const CadastroTrilhas = () => {
                                 <FormularioAjuda>
                                     Explique o que os alunos vão aprender e para quem esta trilha é recomendada
                                 </FormularioAjuda>
+
+                                {/* Status da Geração */}
+                                {gerandoResumo && (
+                                    <StatusGeracao className="loading">
+                                        <LoadingSpinner />
+                                        <span>IA está criando uma descrição personalizada...</span>
+                                    </StatusGeracao>
+                                )}
+
+                                {erroResumo && (
+                                    <StatusGeracao className="error">
+                                        <i className="fas fa-exclamation-triangle"></i>
+                                        <span>{erroResumo}</span>
+                                    </StatusGeracao>
+                                )}
+
+                                {successoResumo && (
+                                    <SugestaoContainer>
+                                        <div className="sugestao-header">
+                                            <i className="fas fa-lightbulb"></i>
+                                            <span>Descrição gerada com sucesso!</span>
+                                        </div>
+                                        <p className="sugestao-message">{successoResumo}</p>
+                                        <div className="sugestao-actions">
+                                            <button 
+                                                type="button" 
+                                                className="btn-usar"
+                                                onClick={usarSugestao}
+                                            >
+                                                <i className="fas fa-check"></i>
+                                                Continuar Editando
+                                            </button>
+                                            <button 
+                                                type="button" 
+                                                className="btn-descartar"
+                                                onClick={descartarSugestao}
+                                            >
+                                                <i className="fas fa-times"></i>
+                                                Descartar
+                                            </button>
+                                        </div>
+                                    </SugestaoContainer>
+                                )}
                             </FormularioGrupo>
 
+                            {/* Resto do formulário permanece igual */}
                             {/* Area */}
                             <FormularioGrupo>
                                 <FormularioLabel>
@@ -175,12 +297,14 @@ const CadastroTrilhas = () => {
 
                         {error && (
                             <SecaoErro>
+                                <i className="fas fa-exclamation-circle"></i>
                                 <p>{error}</p>
                             </SecaoErro>
                         )}
 
                         {success && (
                             <SecaoSucesso>
+                                <i className="fas fa-check-circle"></i>
                                 <p>{success}</p>
                             </SecaoSucesso>
                         )}
