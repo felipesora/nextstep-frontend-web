@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import DashBoard from "./pages/DashBoard"
 import Trilhas from "./pages/Trilhas";
@@ -17,6 +17,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+          <Route path="/" element={<Navigate to="/login" replace />} />
           {/* Rota sem barra lateral */}
           <Route path="/login" element={<Login />}/>
 

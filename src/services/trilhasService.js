@@ -18,6 +18,24 @@ export async function buscarTodasTrilhas() {
     return data.content;
 };
 
+export async function buscarTrilhasAtivas() {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API}/trilhas/ativas?size=100`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao obter as trilhas ativas.");
+    }
+
+    const data = await response.json();
+    return data.content;
+};
+
 export async function buscarTrilhaPorId(id) {
     const token = localStorage.getItem('token');
 
