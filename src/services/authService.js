@@ -1,7 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 
+const API = "https://nextstep-backend-java.onrender.com";
+const API_DESENV = "http://localhost:8080";
+
 export async function login(email, senha) {
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch(`${API}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
