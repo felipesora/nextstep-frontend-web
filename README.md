@@ -8,6 +8,7 @@
 - [🖥️ Detalhes do Frontend Web — React.js](#️-detalhes-do-frontend-web--reactjs)
 - [🖥️🚀 Como Rodar o Projeto Web (React.js)](#️-como-rodar-o-projeto-web-reactjs)
 - [☁️ Deploy da Solução](#️-deploy-da-solução)
+- [🎥 Vídeo da API Java em Funcionamento](#-vídeo-da-api-java-em-funcionamento)
 - [👥 Integrantes](#-integrantes)
 
 ## 📝 Descrição da Solução
@@ -273,6 +274,21 @@ Este front-end já está apontando para a URL pública da API Java, permitindo:
 - Criação de trilhas, conteúdos, recursos e categorias
 
 >Lembre-se: se ao abrir o painel ocorrer erro de carregamento, provavelmente a API ainda está inicializando no Render. Basta aguardar alguns segundos e recarregar a página.
+
+---
+
+## 🎥 Vídeo da API Java em Funcionamento
+
+Para demonstrar o funcionamento da API administrativa desenvolvida em **Java + Spring Boot**, disponibilizei um vídeo completo mostrando:
+
+- O processo de autenticação
+- A criação de trilhas e conteúdos
+- O funcionamento dos endpoints
+- A integração com IA via Spring AI Ollama
+- A estrutura geral da aplicação no painel administrativo
+
+👉 **Assista ao vídeo aqui**:
+[Clique para ver o vídeo da API Java / WEB](https://www.youtube.com/watch?v=eaWrRpiMwb0)
 
 ---
 
