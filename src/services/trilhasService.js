@@ -1,4 +1,5 @@
-const API = "http://localhost:8080";
+const API = "https://nextstep-backend-java.onrender.com";
+const API_DESENV = "http://localhost:8080";
 
 export async function buscarTodasTrilhas() {
     const token = localStorage.getItem('token');
